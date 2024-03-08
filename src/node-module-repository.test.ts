@@ -68,7 +68,7 @@ describe("NodeModuleRepository", () => {
       });
 
       describe("when load invalid package", () => {
-        it("should be return to Ok and module", async () => {
+        it("should be return to Err", async () => {
           class DummyFileRepository implements FileRepository {
             constructor() {}
             async read() {
@@ -98,7 +98,7 @@ describe("NodeModuleRepository", () => {
       });
 
       describe("when failed load package", () => {
-        it("should be return to Ok and module", async () => {
+        it("should be return to Err", async () => {
           class DummyFileRepository implements FileRepository {
             constructor() {}
             async read(p: string) {
