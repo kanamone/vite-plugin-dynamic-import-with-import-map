@@ -1,3 +1,3 @@
 import { Plugin } from "vite";
 
-export const dynamicImportWithImportMap = (options?: string[] = []) => {};
+export const dynamicImportWithImportMap: Plugin = (options?: string[] = []) => {};

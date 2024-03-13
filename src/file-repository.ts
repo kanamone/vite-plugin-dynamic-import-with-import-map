@@ -5,5 +5,5 @@ export type WriteFileError = { kind: "FailedWriteFile"; path: string };
 
 export interface FileRepository {
   read(path: string): Promise<Result<string, ReadFileError>>;
-  write(path: string, body: string): Promise<Result<void, WriteFileError>>;
+  write(path: string, body: string): Promise<Result<null, WriteFileError>>;
 }
