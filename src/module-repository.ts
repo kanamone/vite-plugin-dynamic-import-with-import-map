@@ -1,5 +1,5 @@
 import { Result } from "option-t/PlainResult";
-import { Module } from "./module";
+import { Module } from "./module.js";
 
 export type ModuleResolveError =
   | {

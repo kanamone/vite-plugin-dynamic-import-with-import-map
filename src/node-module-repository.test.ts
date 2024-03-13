@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { NodeModuleRepository } from "./node-module-repository";
-import { FileRepository, WriteFileError } from "./file-repository";
+import { NodeModuleRepository } from "./node-module-repository.js";
+import { FileRepository, WriteFileError } from "./file-repository.js";
 import { Result, createErr, createOk } from "option-t/PlainResult";
 
 describe("NodeModuleRepository", () => {
@@ -24,7 +24,7 @@ describe("NodeModuleRepository", () => {
             async write(
               _path: string,
               _body: string,
-            ): Promise<Result<void, WriteFileError>> {
+            ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }
@@ -54,7 +54,7 @@ describe("NodeModuleRepository", () => {
             async write(
               _path: string,
               _body: string,
-            ): Promise<Result<void, WriteFileError>> {
+            ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }
@@ -84,7 +84,7 @@ describe("NodeModuleRepository", () => {
             async write(
               _path: string,
               _body: string,
-            ): Promise<Result<void, WriteFileError>> {
+            ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }
@@ -111,7 +111,7 @@ describe("NodeModuleRepository", () => {
             async write(
               _path: string,
               _body: string,
-            ): Promise<Result<void, WriteFileError>> {
+            ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }

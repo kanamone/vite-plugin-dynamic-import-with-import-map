@@ -1,8 +1,8 @@
 import { transform } from 'esbuild'
-import { Module } from './module'
-import { FileRepository } from './file-repository'
+import { Module } from './module.js'
 import { Result, createErr, createOk } from 'option-t/PlainResult'
 import { tryCatchIntoResultAsync } from 'option-t/PlainResult/tryCatchAsync'
+import { FileRepository } from './file-repository.js'
 
 type Dependencies = {
   fileRepository: FileRepository

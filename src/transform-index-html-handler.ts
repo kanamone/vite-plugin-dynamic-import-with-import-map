@@ -1,6 +1,6 @@
-import { allForResults } from "./all-for-results"
-import { BuildDynamicImportModules } from "./build-dynamic-import-modules"
-import { ModuleRepository } from "./module-repository"
+import { allForResults } from "./all-for-results.js"
+import { BuildDynamicImportModules } from "./build-dynamic-import-modules.js"
+import { ModuleRepository } from "./module-repository.js"
 
 export type HtmlTagDescriptor =  {
   tag: string
@@ -9,7 +9,6 @@ export type HtmlTagDescriptor =  {
 }
 
 export type TransformIndexHtmlHandler = (
-  _this: void | null,
   html: string,
   ctx: { path: string }
 ) => Promise<{html: string, tags: HtmlTagDescriptor[]}>
@@ -19,7 +18,7 @@ type Dependencies = {
   moduleRepo: ModuleRepository
 }
 
-export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string[]) => TransformIndexHtmlHandler = (deps) =>  options => async (_, html, { path }) => {
+export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string[]) => TransformIndexHtmlHandler = (deps) =>  options => async (html, { path }) => {
   const mods = await Promise.all(options.map(modName => deps.moduleRepo.resolve(modName)))
   const modsResult = allForResults(mods)
   if(!modsResult.ok) {

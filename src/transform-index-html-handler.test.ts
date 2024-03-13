@@ -1,8 +1,8 @@
 import { describe, it, expect  } from "vitest";
-import { ModuleRepository } from "./module-repository";
+import { ModuleRepository } from "./module-repository.js";
 import { createOk } from "option-t/PlainResult";
-import { BuildDynamicImportModules } from "./build-dynamic-import-modules";
-import { transformIndexHtmlHandler } from "./transform-index-html-handler";
+import { BuildDynamicImportModules } from "./build-dynamic-import-modules.js";
+import { transformIndexHtmlHandler } from "./transform-index-html-handler.js";
 
 describe("transformIndexHtmlHandler", () => {
   describe("when success buildDynamicImportModules and empty importmap", () => {
@@ -20,7 +20,7 @@ describe("transformIndexHtmlHandler", () => {
         return createOk(modules.map(m => ([m.name, `${m.name}.js`])))
       }
 
-      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })([])(null, "<html></html>", { path: '.' })
+      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })([])("<html></html>", { path: '.' })
       expect(actual).toStrictEqual({
         html: "<html></html>",
         tags: [
@@ -49,7 +49,7 @@ describe("transformIndexHtmlHandler", () => {
         return createOk(modules.map(m => ([m.name, `${m.name}.js`])))
       }
 
-      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })(["foo"])(null, "<html></html>", { path: '.' })
+      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })(["foo"])("<html></html>", { path: '.' })
       expect(actual).toStrictEqual({
         html: "<html></html>",
         tags: [

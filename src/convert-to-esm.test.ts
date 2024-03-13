@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { convertToESM } from './convert-to-esm'
-import { FileRepository, WriteFileError } from './file-repository'
+import { convertToESM } from './convert-to-esm.js'
+import { FileRepository, WriteFileError } from './file-repository.js'
 import { Result, createErr, createOk } from 'option-t/PlainResult'
 
 describe("convertToESM", () => {
@@ -13,7 +13,7 @@ describe("convertToESM", () => {
             path: path
           } as const)
         }
-        async write(_path: string, _body: string): Promise<Result<void, WriteFileError >> {
+        async write(_path: string, _body: string): Promise<Result<null, WriteFileError >> {
           throw new Error("unreacheble")
         }
       }
@@ -35,7 +35,7 @@ describe("convertToESM", () => {
         async read(path: string) {
           return createOk("console.)")
         }
-        async write(_path: string, _body: string): Promise<Result<void, WriteFileError >> {
+        async write(_path: string, _body: string): Promise<Result<null, WriteFileError >> {
           throw new Error("unreacheble")
         }
       }
@@ -60,7 +60,7 @@ describe("convertToESM", () => {
         async read(_path: string) {
           return createOk("console.log('hello')")
         }
-        async write(_path: string, _body: string): Promise<Result<void, WriteFileError >> {
+        async write(_path: string, _body: string): Promise<Result<null, WriteFileError >> {
           throw new Error("unreacheble")
         }
       }
@@ -78,7 +78,7 @@ describe("convertToESM", () => {
         async read(_path: string) {
           return createOk("module.exports = function add(a: number, b: number) { return a + b }")
         }
-        async write(_path: string, _body: string): Promise<Result<void, WriteFileError >> {
+        async write(_path: string, _body: string): Promise<Result<null, WriteFileError >> {
           throw new Error("unreacheble")
         }
       }

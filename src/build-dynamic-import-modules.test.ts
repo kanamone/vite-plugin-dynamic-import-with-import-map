@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { ConvertToESM } from './convert-to-esm'
+import { ConvertToESM } from './convert-to-esm.js'
 import { Result, createErr, createOk } from 'option-t/PlainResult'
-import { Module } from './module'
-import { FileRepository, ReadFileError, WriteFileError } from './file-repository'
-import { buildDynamicImportModules } from './build-dynamic-import-modules'
+import { Module } from './module.js'
+import { FileRepository, ReadFileError, WriteFileError } from './file-repository.js'
+import { buildDynamicImportModules } from './build-dynamic-import-modules.js'
 
 class LoggedWriteFileRepository implements FileRepository {
   constructor(private _called: Array<[string, string]> = []) {}
@@ -74,7 +74,7 @@ describe("buildDynamicImportModules", () => {
         fileRepository: fileRepo
       })([{
         name: 'example', entryPointPath: 'node_modules/example/index.js'
-      }], './dist')
+      }], './example.js')
       expect(actual.err).toStrictEqual({
         kind: 'TransformError',
         error: {
@@ -99,7 +99,7 @@ describe("buildDynamicImportModules", () => {
         fileRepository: fileRepo
       })([{
         name: 'example', entryPointPath: 'node_modules/example/index.js'
-      }], './dist')
+      }], './example.js')
       expect(fileRepo.called).toStrictEqual([])
     })  
   })

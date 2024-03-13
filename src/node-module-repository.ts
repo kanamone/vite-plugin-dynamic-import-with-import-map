@@ -1,6 +1,6 @@
 import { join, relative } from "path";
-import { FileRepository } from "./file-repository";
-import { ModuleRepository, ModuleResolveError } from "./module-repository";
+import { FileRepository } from "./file-repository.js";
+import { ModuleRepository, ModuleResolveError } from "./module-repository.js";
 import { cwd } from "process";
 import {
   Result,
@@ -11,7 +11,7 @@ import {
   mapOrElseForResult,
 } from "option-t/PlainResult";
 import { okOrForUndefinable } from "option-t/Undefinable/okOr";
-import { Module } from "./module";
+import { Module } from "./module.js";
 
 export const isESM = (obj: Record<string, string | undefined>) => {
   return obj["type"] === "module";

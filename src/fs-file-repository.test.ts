@@ -1,6 +1,6 @@
 import { rm } from "fs/promises";
 import { describe, it, expect } from "vitest";
-import { FsFileRepository } from "./fs-file-repository";
+import { FsFileRepository } from "./fs-file-repository.js";
 
 describe("FsFileRepository", () => {
   describe("#read", () => {

@@ -1,9 +1,9 @@
 import { Result, createErr, createOk } from "option-t/PlainResult"
-import { ConvertToESM } from "./convert-to-esm"
-import { Module } from "./module"
-import { FileRepository } from "./file-repository"
+import { ConvertToESM } from "./convert-to-esm.js"
+import { Module } from "./module.js"
+import { FileRepository } from "./file-repository.js"
 import { join } from "path"
-import { allForResults } from "./all-for-results"
+import { allForResults } from "./all-for-results.js"
 
 type Dependencies = {
   convertToESM: ConvertToESM,
