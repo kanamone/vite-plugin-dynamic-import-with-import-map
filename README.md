@@ -6,8 +6,8 @@ Import some modules via [importmap](https://developer.mozilla.org//docs/Web/HTML
 
 1. ✅ Auto embed importmap in index.html
 1. ✅ Auto generate external modules bundle by esbuild
-  1. ✅ Minify
-  1. ✅ Inline sourcemap
+    1. ✅ Minify
+    1. ✅ Inline sourcemap
 
 ## Installation 
 
