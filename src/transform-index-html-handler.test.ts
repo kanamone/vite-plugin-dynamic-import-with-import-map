@@ -27,7 +27,7 @@ describe("transformIndexHtmlHandler", () => {
           {
             tag: 'script',
             attrs: { type: 'importmap' },
-            children: JSON.stringify({})
+            children: JSON.stringify({imports: {}})
           }
         ]
       })
@@ -56,7 +56,7 @@ describe("transformIndexHtmlHandler", () => {
           {
             tag: 'script',
             attrs: { type: 'importmap' },
-            children: JSON.stringify({foo: 'foo.js'})
+            children: JSON.stringify({imports: {foo: './foo.js'}})
           }
         ]
       })
