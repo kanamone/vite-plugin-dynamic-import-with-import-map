@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-dynamic-import-with-import-map",
+  "name": "@kanaomone/vite-plugin-dynamic-import-with-import-map",
   "version": "0.0.0",
   "description": "Import some module via importmap",
   "repository": {
@@ -28,7 +28,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "vite-plugin"
+    "vite"
   ],
   "author": "himanoa <matsunoappy@gmail.com>",
   "license": "MIT",
