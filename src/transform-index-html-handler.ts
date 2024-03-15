@@ -18,7 +18,7 @@ type Dependencies = {
   moduleRepo: ModuleRepository
 }
 
-export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string[]) => TransformIndexHtmlHandler = (deps) =>  options => async (html, { path }) => {
+export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string[]) => TransformIndexHtmlHandler = (deps) =>  options => async (html) => {
   const mods = await Promise.all(options.map(modName => deps.moduleRepo.resolve(modName)))
   const modsResult = allForResults(mods)
   if(!modsResult.ok) {
@@ -28,7 +28,7 @@ export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string
   if(!entries.ok) {
     throw entries.err
   }
-  const importMap = entries.val.reduce<Record<string, string>>(((acc, [name, path]) => ({ ...acc, [name]: path })), {})
+  const importMap = entries.val.reduce<Record<string, string>>(((acc, [name, path]) => ({ ...acc, [name]: `./${path}` })), {})
 
   return {
     html: html,
@@ -36,7 +36,7 @@ export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string
       {
         tag: 'script',
         attrs: { type: 'importmap' },
-        children: JSON.stringify(importMap),
+        children: JSON.stringify({imports: importMap}),
       }
     ]
   }

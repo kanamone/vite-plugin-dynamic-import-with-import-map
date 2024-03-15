@@ -5,7 +5,7 @@ import { createErr, createOk } from "option-t/PlainResult";
 
 type WriteInstruction = [string, string]
 export class FsFileRepository implements FileRepository {
-  constructor(private instructions: Array<WriteInstruction> = []) {}
+  constructor(private _instructions: Array<WriteInstruction> = []) {}
 
   async read(path: string) {
     try {
@@ -17,7 +17,7 @@ export class FsFileRepository implements FileRepository {
 
   async write(path: string, body: string) {
     try {
-      this.instructions.push([path, body] as const)
+      this._instructions.push([path, body] as const)
       return createOk(null);
     } catch {
       return createErr({ kind: "FailedWriteFile" as const, path: path });
@@ -25,8 +25,12 @@ export class FsFileRepository implements FileRepository {
   }
 
   public async persist(path: string) {
-    for(const [fileName, body] of this.instructions) {
+    for(const [fileName, body] of this._instructions) {
       await writeFile(join(path, fileName), body)
     }
+  }
+
+  public get instructions() {
+    return this._instructions
   }
 }

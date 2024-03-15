@@ -22,9 +22,11 @@ export const dynamicImportWithImportMap = (options: string[] = []): Plugin => {
       order: "pre",
       handler: handler(options)
     },
-    closeBundle: () => {
-      console.log("hello")
+    closeBundle(){
       fileRepository.persist('.')
+      for(const [fileName] of fileRepository.instructions) {
+        this.info?.(`${fileName} is generated`)
+      }
     }
   }
 };
