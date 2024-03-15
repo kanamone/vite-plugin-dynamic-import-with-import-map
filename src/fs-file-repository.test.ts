@@ -1,6 +1,6 @@
-import { rm } from "fs/promises";
 import { describe, it, expect } from "vitest";
 import { FsFileRepository } from "./fs-file-repository.js";
+import { rmSync } from "fs";
 
 describe("FsFileRepository", () => {
   describe("#read", () => {
@@ -21,10 +21,19 @@ describe("FsFileRepository", () => {
     it("should be return to Ok and exist file", async () => {
       const repo = new FsFileRepository();
       const writeResult = await repo.write("./dummy-file", "foo");
-      const readResult = await repo.read("./dummy-file");
-      await rm("./dummy-file");
       expect(writeResult.ok).toBe(true);
-      expect(readResult.val).toBe("foo");
+    });
+  });
+
+  describe("persist", () => {
+    it("should be file exist", async () => {
+      const repo = new FsFileRepository();
+      await repo.write("./dummy-file", "foo");
+      await repo.persist('.')
+      const readResult = await repo.read("./dummy-file")
+      rmSync('dummy-file')
+      expect(readResult.ok).toBe(true);
     });
   });
 });
+

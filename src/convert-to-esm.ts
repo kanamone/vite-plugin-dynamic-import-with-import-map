@@ -1,12 +1,7 @@
-import { transform } from 'esbuild'
+import { build } from 'esbuild'
 import { Module } from './module.js'
 import { Result, createErr, createOk } from 'option-t/PlainResult'
 import { tryCatchIntoResultAsync } from 'option-t/PlainResult/tryCatchAsync'
-import { FileRepository } from './file-repository.js'
-
-type Dependencies = {
-  fileRepository: FileRepository
-}
 
 export type ConvertToESMError = {
   kind: "EntryPointIsNotFound",
@@ -23,28 +18,20 @@ export type ConvertedResult = {
 }
 
 export type ConvertToESM = (mod: Module) => Promise<Result<ConvertedResult, ConvertToESMError>>
-export const convertToESM: (deps: Dependencies) => ConvertToESM = (deps) => async (mod: Module) => {
-  const entryPointSourceCodeResult = await deps.fileRepository.read(mod.entryPointPath)
-
-  if(!entryPointSourceCodeResult.ok) {
-    return  createErr({
-      kind: 'EntryPointIsNotFound',
-      name: mod.name,
-      path: mod.entryPointPath
-    })
-  }
-
-  const transformedSourceCodeResult = await tryCatchIntoResultAsync(() => transform(entryPointSourceCodeResult.val, {
-    loader: 'tsx',
+export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
+  const transformedSourceCodeResult = await tryCatchIntoResultAsync(() => build({
+    entryPoints: [mod.entryPointPath],
+    bundle: true,
     sourcemap: 'inline',
     format: 'esm',
     platform: 'browser',
     minify: true,
     minifyWhitespace: true,
     minifyIdentifiers: false,
+    write: false
   }))
 
-  if(!transformedSourceCodeResult.ok) {
+  if(!transformedSourceCodeResult.ok || transformedSourceCodeResult.val.outputFiles == undefined) {
     return createErr({
       kind: 'TransformError',
       pkgName: mod.name,
@@ -54,6 +41,6 @@ export const convertToESM: (deps: Dependencies) => ConvertToESM = (deps) => asyn
 
   return createOk({
     pkgName: mod.name,
-    body: transformedSourceCodeResult.val.code
+    body: transformedSourceCodeResult.val.outputFiles[0].text || ''
   })
 }

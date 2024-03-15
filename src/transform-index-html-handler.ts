@@ -24,7 +24,7 @@ export const transformIndexHtmlHandler: (deps: Dependencies) => (options: string
   if(!modsResult.ok) {
     throw modsResult.err
   }
-  const entries = await deps.buildDynamicImportModules(modsResult.val, path)
+  const entries = await deps.buildDynamicImportModules(modsResult.val, './dist')
   if(!entries.ok) {
     throw entries.err
   }
