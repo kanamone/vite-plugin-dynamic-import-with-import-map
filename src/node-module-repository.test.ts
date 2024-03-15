@@ -21,10 +21,7 @@ describe("NodeModuleRepository", () => {
               );
             }
 
-            async write(
-              _path: string,
-              _body: string,
-            ): Promise<Result<null, WriteFileError>> {
+            async write(): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }
@@ -51,10 +48,7 @@ describe("NodeModuleRepository", () => {
               );
             }
 
-            async write(
-              _path: string,
-              _body: string,
-            ): Promise<Result<null, WriteFileError>> {
+            async write(): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
           }
@@ -82,8 +76,6 @@ describe("NodeModuleRepository", () => {
             }
 
             async write(
-              _path: string,
-              _body: string,
             ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }
@@ -109,8 +101,6 @@ describe("NodeModuleRepository", () => {
             }
 
             async write(
-              _path: string,
-              _body: string,
             ): Promise<Result<null, WriteFileError>> {
               throw new Error("unreachable");
             }

@@ -1,7 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import { convertToESM } from './convert-to-esm.js'
-import { FileRepository, WriteFileError } from './file-repository.js'
-import { Result, createErr, createOk } from 'option-t/PlainResult'
 
 describe("convertToESM", () => {
   describe("when invalid js file", () => {

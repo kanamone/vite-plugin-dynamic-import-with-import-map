@@ -56,7 +56,7 @@ export class NodeModuleRepository implements ModuleRepository {
           kind: "ModuleIsNotFound" as const,
           name,
         }),
-      (x): Result<any, ModuleResolveError> => createOk(JSON.parse(x)),
+      (x): Result<Record<string, string>, ModuleResolveError> => createOk(JSON.parse(x)),
     );
     if (pkg.err) {
       return pkg;

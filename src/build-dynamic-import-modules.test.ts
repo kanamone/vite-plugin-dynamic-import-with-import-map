@@ -8,7 +8,7 @@ import { buildDynamicImportModules } from './build-dynamic-import-modules.js'
 class LoggedWriteFileRepository implements FileRepository {
   constructor(private _called: Array<[string, string]> = []) {}
 
-  async read(_path: string):Promise<Result<string, ReadFileError>> {
+  async read():Promise<Result<string, ReadFileError>> {
     throw new Error("unreachable")
   }
 
@@ -94,7 +94,7 @@ describe("buildDynamicImportModules", () => {
       }
 
       const fileRepo = new LoggedWriteFileRepository()
-      const actual = await buildDynamicImportModules({
+      await buildDynamicImportModules({
         convertToESM: failConvertToESM,
         fileRepository: fileRepo
       })([{
