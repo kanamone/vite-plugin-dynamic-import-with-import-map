@@ -6,27 +6,27 @@ import { NodeModuleRepository } from "./node-module-repository.js";
 import { Plugin } from "vite";
 
 export const dynamicImportWithImportMap = (options: string[] = []): Plugin => {
-  const fileRepository = new FsFileRepository()
+  const fileRepository = new FsFileRepository();
   const handler = transformIndexHtmlHandler({
     buildDynamicImportModules: buildDynamicImportModules({
       convertToESM: convertToESM(),
-      fileRepository
+      fileRepository,
     }),
-    moduleRepo: new NodeModuleRepository(fileRepository)
-  })
+    moduleRepo: new NodeModuleRepository(fileRepository),
+  });
 
   return {
-    name: 'vite-plugin-dynamic-import-with-import-map',
+    name: "vite-plugin-dynamic-import-with-import-map",
     enforce: "post",
     transformIndexHtml: {
       order: "pre",
-      handler: handler(options)
+      handler: handler(options),
     },
-    closeBundle(){
-      fileRepository.persist('.')
-      for(const [fileName] of fileRepository.instructions) {
-        this.info?.(`${fileName} is generated`)
+    closeBundle() {
+      fileRepository.persist(".");
+      for (const [fileName] of fileRepository.instructions) {
+        this.info?.(`${fileName} is generated`);
       }
-    }
-  }
+    },
+  };
 };

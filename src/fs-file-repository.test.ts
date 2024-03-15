@@ -29,11 +29,10 @@ describe("FsFileRepository", () => {
     it("should be file exist", async () => {
       const repo = new FsFileRepository();
       await repo.write("./dummy-file", "foo");
-      await repo.persist('.')
-      const readResult = await repo.read("./dummy-file")
-      rmSync('dummy-file')
+      await repo.persist(".");
+      const readResult = await repo.read("./dummy-file");
+      rmSync("dummy-file");
       expect(readResult.ok).toBe(true);
     });
   });
 });
-

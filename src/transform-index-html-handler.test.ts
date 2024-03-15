@@ -1,4 +1,4 @@
-import { describe, it, expect  } from "vitest";
+import { describe, it, expect } from "vitest";
 import { ModuleRepository } from "./module-repository.js";
 import { createOk } from "option-t/PlainResult";
 import { BuildDynamicImportModules } from "./build-dynamic-import-modules.js";
@@ -11,28 +11,33 @@ describe("transformIndexHtmlHandler", () => {
         async resolve(name: string) {
           return createOk({
             name: name,
-            entryPointPath: `node_modules/${name}/index.js`
-          })
+            entryPointPath: `node_modules/${name}/index.js`,
+          });
         }
       }
 
-      const buildDynamicImportModules: BuildDynamicImportModules = async (modules) => {
-        return createOk(modules.map(m => ([m.name, `${m.name}.js`])))
-      }
+      const buildDynamicImportModules: BuildDynamicImportModules = async (
+        modules,
+      ) => {
+        return createOk(modules.map((m) => [m.name, `${m.name}.js`]));
+      };
 
-      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })([])("<html></html>", { path: '.' })
+      const actual = await transformIndexHtmlHandler({
+        buildDynamicImportModules,
+        moduleRepo: new DummyModuleRepository(),
+      })([])("<html></html>", { path: "." });
       expect(actual).toStrictEqual({
         html: "<html></html>",
         tags: [
           {
-            tag: 'script',
-            attrs: { type: 'importmap' },
-            children: JSON.stringify({imports: {}})
-          }
-        ]
-      })
-    })
-  })
+            tag: "script",
+            attrs: { type: "importmap" },
+            children: JSON.stringify({ imports: {} }),
+          },
+        ],
+      });
+    });
+  });
 
   describe("when success buildDynamicImportModules and one importmap", () => {
     it("should be return to import map", async () => {
@@ -40,26 +45,31 @@ describe("transformIndexHtmlHandler", () => {
         async resolve(name: string) {
           return createOk({
             name: name,
-            entryPointPath: `node_modules/${name}/index.js`
-          })
+            entryPointPath: `node_modules/${name}/index.js`,
+          });
         }
       }
 
-      const buildDynamicImportModules: BuildDynamicImportModules = async (modules) => {
-        return createOk(modules.map(m => ([m.name, `${m.name}.js`])))
-      }
+      const buildDynamicImportModules: BuildDynamicImportModules = async (
+        modules,
+      ) => {
+        return createOk(modules.map((m) => [m.name, `${m.name}.js`]));
+      };
 
-      const actual = await transformIndexHtmlHandler({ buildDynamicImportModules, moduleRepo: new DummyModuleRepository() })(["foo"])("<html></html>", { path: '.' })
+      const actual = await transformIndexHtmlHandler({
+        buildDynamicImportModules,
+        moduleRepo: new DummyModuleRepository(),
+      })(["foo"])("<html></html>", { path: "." });
       expect(actual).toStrictEqual({
         html: "<html></html>",
         tags: [
           {
-            tag: 'script',
-            attrs: { type: 'importmap' },
-            children: JSON.stringify({imports: {foo: './foo.js'}})
-          }
-        ]
-      })
-    })
-  })
-})
+            tag: "script",
+            attrs: { type: "importmap" },
+            children: JSON.stringify({ imports: { foo: "./foo.js" } }),
+          },
+        ],
+      });
+    });
+  });
+});
