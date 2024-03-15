@@ -32,5 +32,5 @@ export default defineConfig({
 
 ## Caveats
 
-This plugin doesn't work well in serve mode. Because module dependency resolution is done with rollup phase. Vite is skip rollup bundle when serve mode. However embed importmap is worked in serve mode.
+Module dependency resolution doesn't work. Because vite is not execute rollup build phase when serve mode.
 
