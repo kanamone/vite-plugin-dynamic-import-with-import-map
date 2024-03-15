@@ -1,5 +1,8 @@
 # @kanamone/vite-plugin-with-import-map
 
+[![npm version](https://badge.fury.io/js/@kanamone%2Fvite-plugin-dynamic-import-with-import-map.svg)](https://badge.fury.io/js/@kanamone%2Fvite-plugin-dynamic-import-with-import-map)
+[![test](https://github.com/kanamone/vite-plugin-dynamic-import-with-import-map/actions/workflows/test.yml/badge.svg)](https://github.com/kanamone/vite-plugin-dynamic-import-with-import-map/actions/workflows/test.yml)
+
 Import some modules via [importmap](https://developer.mozilla.org//docs/Web/HTML/Element/script/type/importmap)
 
 ## Features
