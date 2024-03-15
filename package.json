@@ -26,10 +26,13 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "keywords": ["vite-plugin"],
+  "keywords": [
+    "vite-plugin"
+  ],
   "author": "himanoa <matsunoappy@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "2.27.1",
     "@types/node": "20.11.25",
     "@typescript-eslint/eslint-plugin": "7.2.0",
     "@typescript-eslint/parser": "7.2.0",
