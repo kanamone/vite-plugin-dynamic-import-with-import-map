@@ -19,7 +19,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write src/*",
-    "lint": "eslint src/*"
+    "lint": "eslint src/*",
+    "release": "changeset publish"
   },
   "private": false,
   "publishConfig": {
