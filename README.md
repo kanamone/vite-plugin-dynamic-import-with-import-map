@@ -1,4 +1,4 @@
-# @himanoa/vite-plugin-with-import-map
+# @kanamone/vite-plugin-with-import-map
 
 Import some modules via [importmap](https://developer.mozilla.org//docs/Web/HTML/Element/script/type/importmap)
 
@@ -12,7 +12,7 @@ Import some modules via [importmap](https://developer.mozilla.org//docs/Web/HTML
 ## Installation 
 
 ```sh
-npm install @himanoa/vite-plugin-with-import-map
+npm install @kanamone/vite-plugin-with-import-map
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ The following example makes split `react` bundle
 // vite.config.ts
 
 import { defineConfig } from 'vite'
-import { dynamicImportWithImportMap } from '@himanoa/vite-plugin-with-import-map'
+import { dynamicImportWithImportMap } from '@kanamone/vite-plugin-with-import-map'
 
 export default defineConfig({
   plugins: [dynamicImportWithImportMap(['react'])],
