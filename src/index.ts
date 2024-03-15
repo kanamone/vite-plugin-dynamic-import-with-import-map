@@ -3,9 +3,11 @@ import { buildDynamicImportModules } from "./build-dynamic-import-modules.js";
 import { convertToESM } from "./convert-to-esm.js";
 import { FsFileRepository } from "./fs-file-repository.js";
 import { NodeModuleRepository } from "./node-module-repository.js";
-import { Plugin } from "vite";
+import { PluginOption } from "vite";
 
-export const dynamicImportWithImportMap = (options: string[] = []): Plugin => {
+export type External = string[]
+
+export const dynamicImportWithImportMap = (options: External): PluginOption => {
   const fileRepository = new FsFileRepository();
   const handler = transformIndexHtmlHandler({
     buildDynamicImportModules: buildDynamicImportModules({
@@ -15,7 +17,7 @@ export const dynamicImportWithImportMap = (options: string[] = []): Plugin => {
     moduleRepo: new NodeModuleRepository(fileRepository),
   });
 
-  return {
+  return [{
     name: "vite-plugin-dynamic-import-with-import-map",
     enforce: "post",
     transformIndexHtml: {
@@ -28,5 +30,5 @@ export const dynamicImportWithImportMap = (options: string[] = []): Plugin => {
         this.info?.(`${fileName} is generated`);
       }
     },
-  };
+  }];
 };
