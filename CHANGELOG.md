@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.0.3
+
+### Patch Changes
+
+- e9cd5fc: Fix relase script
+
 ## 0.0.2
 
 ### Patch Changes
