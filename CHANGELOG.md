@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.0.4
+
+### Patch Changes
+
+- 409beb8: Add types and module section in package.json
+
 ## 0.0.3
 
 ### Patch Changes
