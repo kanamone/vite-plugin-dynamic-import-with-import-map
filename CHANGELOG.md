@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.0.5
+
+### Patch Changes
+
+- ea75547: Fixed a bug where the package was not resolved when resolving a hoisted module.
+
 ## 0.0.4
 
 ### Patch Changes
