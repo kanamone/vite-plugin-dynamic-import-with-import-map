@@ -1,4 +1,4 @@
-import { join, relative } from "path";
+import { dirname, join, relative } from "path";
 import { FileRepository } from "./file-repository.js";
 import { ModuleRepository, ModuleResolveError } from "./module-repository.js";
 import { cwd } from "process";
@@ -12,6 +12,7 @@ import {
 } from "option-t/PlainResult";
 import { okOrForUndefinable } from "option-t/Undefinable/okOr";
 import { Module } from "./module.js";
+import resolvePackagePath from "resolve-package-path";
 
 export const isESM = (obj: Record<string, string | undefined>) => {
   return obj["type"] === "module";
@@ -43,9 +44,10 @@ export class NodeModuleRepository implements ModuleRepository {
   constructor(private fsRepo: FileRepository) {}
 
   async resolve(name: string) {
+    const path = resolvePackagePath(name, cwd()) || ''
     const modulePath = relative(
       cwd(),
-      join(cwd(), "node_modules", ...name.split("/")),
+      dirname(path),
     );
     const packageJsonPath = join(modulePath, "package.json");
 
