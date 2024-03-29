@@ -37,6 +37,25 @@ const dummyConvertToESM: ConvertToESM = async (mod: Module) => {
 };
 
 describe("buildDynamicImportModules", () => {
+  describe("when transform successful with scoped package", () => {
+    it("should be return the filename with slashes escaped", async () => {
+      const fileRepo = new LoggedWriteFileRepository();
+      const actual = await buildDynamicImportModules({
+        fileRepository: fileRepo,
+        convertToESM: dummyConvertToESM,
+      })(
+        [
+          {
+            name: "@foo/example",
+            entryPointPath: "node_modules/@foo/example/index.js",
+          },
+        ],
+        ".",
+      );
+      expect(actual.ok).toStrictEqual(true);
+      expect(actual.val).toStrictEqual([["@foo/example", "@foo__example.js"]]);
+    });
+  });
   describe("when all transform successful", () => {
     it("should be return to Ok(ImportMapEntries)", async () => {
       const fileRepo = new LoggedWriteFileRepository();

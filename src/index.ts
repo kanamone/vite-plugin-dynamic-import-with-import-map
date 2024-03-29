@@ -5,7 +5,7 @@ import { FsFileRepository } from "./fs-file-repository.js";
 import { NodeModuleRepository } from "./node-module-repository.js";
 import { PluginOption } from "vite";
 
-export type External = string[]
+export type External = string[];
 
 export const dynamicImportWithImportMap = (options: External): PluginOption => {
   const fileRepository = new FsFileRepository();
@@ -17,18 +17,20 @@ export const dynamicImportWithImportMap = (options: External): PluginOption => {
     moduleRepo: new NodeModuleRepository(fileRepository),
   });
 
-  return [{
-    name: "vite-plugin-dynamic-import-with-import-map",
-    enforce: "post",
-    transformIndexHtml: {
-      order: "pre",
-      handler: handler(options),
+  return [
+    {
+      name: "vite-plugin-dynamic-import-with-import-map",
+      enforce: "post",
+      transformIndexHtml: {
+        order: "pre",
+        handler: handler(options),
+      },
+      closeBundle() {
+        fileRepository.persist(".");
+        for (const [fileName] of fileRepository.instructions) {
+          this.info?.(`${fileName} is generated`);
+        }
+      },
     },
-    closeBundle() {
-      fileRepository.persist(".");
-      for (const [fileName] of fileRepository.instructions) {
-        this.info?.(`${fileName} is generated`);
-      }
-    },
-  }];
+  ];
 };
