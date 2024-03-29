@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.0.6
+
+### Patch Changes
+
+- 662c245: Fix a bug where filename include slash when load scoped package
+
 ## 0.0.5
 
 ### Patch Changes
