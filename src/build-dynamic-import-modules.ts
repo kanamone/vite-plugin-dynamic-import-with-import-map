@@ -4,7 +4,6 @@ import { Module } from "./module.js";
 import { FileRepository } from "./file-repository.js";
 import { join } from "path";
 import { allForResults } from "./all-for-results.js";
-import { transform } from "esbuild";
 
 type Dependencies = {
   convertToESM: ConvertToESM;
