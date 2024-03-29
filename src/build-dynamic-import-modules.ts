@@ -39,20 +39,19 @@ export const buildDynamicImportModules: (
   }
 
   for (const transformedMod of transformedModsResult.val) {
-    const fileName = escaapeScopdPackageName(transformedMod.pkgName)
+    const fileName = escaapeScopdPackageName(transformedMod.pkgName);
     const dist = join(distPath, `${fileName}.js`);
     await deps.fileRepository.write(dist, transformedMod.body);
   }
 
   return createOk(
     transformedModsResult.val.map((mod) => {
-      const fileName = escaapeScopdPackageName(mod.pkgName)
+      const fileName = escaapeScopdPackageName(mod.pkgName);
       return [mod.pkgName, `${fileName}.js`] as const;
     }),
   );
 };
 
 const escaapeScopdPackageName = (pkgName: string): string => {
-  return pkgName.replace(/\//, '__')
-}
-
+  return pkgName.replace(/\//, "__");
+};

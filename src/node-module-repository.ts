@@ -44,11 +44,8 @@ export class NodeModuleRepository implements ModuleRepository {
   constructor(private fsRepo: FileRepository) {}
 
   async resolve(name: string) {
-    const path = resolvePackagePath(name, cwd()) || ''
-    const modulePath = relative(
-      cwd(),
-      dirname(path),
-    );
+    const path = resolvePackagePath(name, cwd()) || "";
+    const modulePath = relative(cwd(), dirname(path));
     const packageJsonPath = join(modulePath, "package.json");
 
     const pkg = mapOrElseForResult(

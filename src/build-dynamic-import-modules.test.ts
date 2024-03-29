@@ -54,8 +54,8 @@ describe("buildDynamicImportModules", () => {
       );
       expect(actual.ok).toStrictEqual(true);
       expect(actual.val).toStrictEqual([["@foo/example", "@foo__example.js"]]);
-    })
-  })
+    });
+  });
   describe("when all transform successful", () => {
     it("should be return to Ok(ImportMapEntries)", async () => {
       const fileRepo = new LoggedWriteFileRepository();
