@@ -4,6 +4,7 @@ import { Module } from "./module.js";
 import { FileRepository } from "./file-repository.js";
 import { join } from "path";
 import { allForResults } from "./all-for-results.js";
+import { transform } from "esbuild";
 
 type Dependencies = {
   convertToESM: ConvertToESM;
@@ -39,13 +40,20 @@ export const buildDynamicImportModules: (
   }
 
   for (const transformedMod of transformedModsResult.val) {
-    const dist = join(distPath, `${transformedMod.pkgName}.js`);
+    const fileName = escaapeScopdPackageName(transformedMod.pkgName)
+    const dist = join(distPath, `${fileName}.js`);
     await deps.fileRepository.write(dist, transformedMod.body);
   }
 
   return createOk(
     transformedModsResult.val.map((mod) => {
-      return [mod.pkgName, `${mod.pkgName}.js`] as const;
+      const fileName = escaapeScopdPackageName(mod.pkgName)
+      return [mod.pkgName, `${fileName}.js`] as const;
     }),
   );
 };
+
+const escaapeScopdPackageName = (pkgName: string): string => {
+  return pkgName.replace(/\//, '__')
+}
+
