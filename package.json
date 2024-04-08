@@ -1,6 +1,7 @@
 {
   "name": "@kanamone/vite-plugin-dynamic-import-with-import-map",
   "version": "0.0.6",
+  "packageManager": "pnpm@8.15.6",
   "description": "Import some module via importmap",
   "repository": {
     "type": "git",
