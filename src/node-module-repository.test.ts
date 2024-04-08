@@ -30,7 +30,7 @@ describe("NodeModuleRepository", () => {
           const repo = new NodeModuleRepository(new DummyFileRepository());
           expect((await repo.resolve("vite")).val).toMatchInlineSnapshot(`
             {
-              "entryPointPath": "node_modules/.pnpm/vite@5.1.5_@types+node@20.11.25/node_modules/vite/foo.js",
+              "entryPointPath": "node_modules/.pnpm/vite@5.2.8_@types+node@20.11.25/node_modules/vite/foo.js",
               "name": "vite",
             }
           `);
