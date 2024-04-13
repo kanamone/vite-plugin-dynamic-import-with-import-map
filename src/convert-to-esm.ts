@@ -2,6 +2,7 @@ import { build } from "esbuild";
 import { Module } from "./module.js";
 import { Result, createErr, createOk } from "option-t/PlainResult";
 import { tryCatchIntoResultAsync } from "option-t/PlainResult/tryCatchAsync";
+import esbuldNamedExportsPlugin from 'esbuild-plugin-named-exports'
 
 export type ConvertToESMError =
   | {
@@ -34,8 +35,11 @@ export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
       minifyWhitespace: true,
       minifyIdentifiers: false,
       write: false,
+      plugins: [esbuldNamedExportsPlugin]
     }),
   );
+
+  // ここでCSMのnamed exportをESMのnaemd exportに変換する
 
   if (
     !transformedSourceCodeResult.ok ||

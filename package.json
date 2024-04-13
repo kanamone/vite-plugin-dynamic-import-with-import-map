@@ -57,6 +57,7 @@
     "README.md"
   ],
   "dependencies": {
+    "esbuild-plugin-named-exports": "3.0.7",
     "option-t": "39.0.2",
     "resolve-package-path": "4.0.3"
   },
