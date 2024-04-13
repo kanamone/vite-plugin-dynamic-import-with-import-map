@@ -2,6 +2,7 @@ import { build } from "esbuild";
 import { Module } from "./module.js";
 import { Result, createErr, createOk } from "option-t/PlainResult";
 import { tryCatchIntoResultAsync } from "option-t/PlainResult/tryCatchAsync";
+import esbuldNamedExportsPlugin from 'esbuild-plugin-named-exports'
 
 export type ConvertToESMError =
   | {
@@ -23,8 +24,10 @@ export type ConvertToESM = (
   mod: Module,
 ) => Promise<Result<ConvertedResult, ConvertToESMError>>;
 export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
+  const plugins = mod.moduleType === 'cjs'  ? [esbuldNamedExportsPlugin] : []
   const transformedSourceCodeResult = await tryCatchIntoResultAsync(() =>
     build({
+      plugins,
       entryPoints: [mod.entryPointPath],
       bundle: true,
       sourcemap: "inline",

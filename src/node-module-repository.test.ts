@@ -31,6 +31,7 @@ describe("NodeModuleRepository", () => {
           expect((await repo.resolve("vite")).val).toMatchInlineSnapshot(`
             {
               "entryPointPath": "node_modules/.pnpm/vite@5.2.8_@types+node@20.11.25/node_modules/vite/foo.js",
+              "moduleType": "esm",
               "name": "vite",
             }
           `);
@@ -128,6 +129,7 @@ describe("NodeModuleRepository", () => {
           const repo = new NodeModuleRepository(new DummyFileRepository());
           expect((await repo.resolve("foo")).val).toStrictEqual({
             name: "foo",
+            moduleType: 'esm',
             entryPointPath: "foo.js",
           });
 
@@ -158,6 +160,7 @@ describe("NodeModuleRepository", () => {
           expect((await repo.resolve("foo")).val).toStrictEqual({
             name: "foo",
             entryPointPath: "main.js",
+            moduleType: 'cjs'
           });
         });
       });

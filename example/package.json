@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vite": "vite --config vite.config.ts"
+    "vite": "vite --config vite.config.ts",
+    "build": "vite build --config vite.config.ts"
   },
   "keywords": [],
   "author": "",
