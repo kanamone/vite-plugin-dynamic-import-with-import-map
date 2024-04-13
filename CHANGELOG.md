@@ -1,5 +1,17 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.1.0
+
+### Minor Changes
+
+- e8012bd: Add support commonjs's named export
+
+### Patch Changes
+
+- e2762c9: Use pnpm@8.15 with corepack
+- 3c79488: Move esbuild from dependencies to peerDependencies
+- 9dbd292: Bump vite version
+
 ## 0.0.6
 
 ### Patch Changes
