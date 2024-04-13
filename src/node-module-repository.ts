@@ -76,6 +76,7 @@ export class NodeModuleRepository implements ModuleRepository {
         return createOk({
           name,
           entryPointPath: p,
+          moduleType: isESM(pkg.val) ? 'esm' : 'cjs'
         });
       },
     );
