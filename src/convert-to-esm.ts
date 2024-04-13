@@ -40,8 +40,6 @@ export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
     }),
   );
 
-  // ここでCSMのnamed exportをESMのnaemd exportに変換する
-
   if (
     !transformedSourceCodeResult.ok ||
     transformedSourceCodeResult.val.outputFiles == undefined
