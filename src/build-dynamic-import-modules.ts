@@ -21,36 +21,41 @@ type ImportMapEntry = [ModuleName, TransformedBody];
 export type BuildDynamicImportModules = (
   modules: ReadonlyArray<Module>,
   distPath: string,
+  externals?: string[],
 ) => Promise<
   Result<ReadonlyArray<ImportMapEntry>, BuildDynamicImportModulesError>
 >;
 
 export const buildDynamicImportModules: (
   deps: Dependencies,
-) => BuildDynamicImportModules = (deps) => async (mods, distPath) => {
-  const transformedModResults = await Promise.all(mods.map(deps.convertToESM));
-  const transformedModsResult = allForResults(transformedModResults);
+) => BuildDynamicImportModules =
+  (deps) =>
+  async (mods, distPath, externals = []) => {
+    const transformedModResults = await Promise.all(
+      mods.map((mod) => deps.convertToESM(mod, externals)),
+    );
+    const transformedModsResult = allForResults(transformedModResults);
 
-  if (!transformedModsResult.ok) {
-    return createErr({
-      kind: "TransformError",
-      error: transformedModsResult.err,
-    });
-  }
+    if (!transformedModsResult.ok) {
+      return createErr({
+        kind: "TransformError",
+        error: transformedModsResult.err,
+      });
+    }
 
-  for (const transformedMod of transformedModsResult.val) {
-    const fileName = escaapeScopdPackageName(transformedMod.pkgName);
-    const dist = join(distPath, `${fileName}.js`);
-    await deps.fileRepository.write(dist, transformedMod.body);
-  }
+    for (const transformedMod of transformedModsResult.val) {
+      const fileName = escaapeScopdPackageName(transformedMod.pkgName);
+      const dist = join(distPath, `${fileName}.js`);
+      await deps.fileRepository.write(dist, transformedMod.body);
+    }
 
-  return createOk(
-    transformedModsResult.val.map((mod) => {
-      const fileName = escaapeScopdPackageName(mod.pkgName);
-      return [mod.pkgName, `${fileName}.js`] as const;
-    }),
-  );
-};
+    return createOk(
+      transformedModsResult.val.map((mod) => {
+        const fileName = escaapeScopdPackageName(mod.pkgName);
+        return [mod.pkgName, `${fileName}.js`] as const;
+      }),
+    );
+  };
 
 const escaapeScopdPackageName = (pkgName: string): string => {
   return pkgName.replace(/\//, "__");

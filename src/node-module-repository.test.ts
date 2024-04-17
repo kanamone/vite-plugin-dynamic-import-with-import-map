@@ -129,7 +129,7 @@ describe("NodeModuleRepository", () => {
           const repo = new NodeModuleRepository(new DummyFileRepository());
           expect((await repo.resolve("foo")).val).toStrictEqual({
             name: "foo",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "foo.js",
           });
 
@@ -160,7 +160,7 @@ describe("NodeModuleRepository", () => {
           expect((await repo.resolve("foo")).val).toStrictEqual({
             name: "foo",
             entryPointPath: "main.js",
-            moduleType: 'cjs'
+            moduleType: "cjs",
           });
         });
       });
