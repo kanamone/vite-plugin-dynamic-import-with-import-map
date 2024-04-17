@@ -11,7 +11,7 @@ describe("transformIndexHtmlHandler", () => {
         async resolve(name: string) {
           return createOk({
             name: name,
-            moduleType: 'esm' as const,
+            moduleType: "esm" as const,
             entryPointPath: `node_modules/${name}/index.js`,
           });
         }
@@ -46,7 +46,7 @@ describe("transformIndexHtmlHandler", () => {
         async resolve(name: string) {
           return createOk({
             name: name,
-            moduleType: 'esm' as const,
+            moduleType: "esm" as const,
             entryPointPath: `node_modules/${name}/index.js`,
           });
         }

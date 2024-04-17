@@ -47,7 +47,7 @@ describe("buildDynamicImportModules", () => {
         [
           {
             name: "@foo/example",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "node_modules/@foo/example/index.js",
           },
         ],
@@ -67,7 +67,7 @@ describe("buildDynamicImportModules", () => {
         [
           {
             name: "example",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "node_modules/example/index.js",
           },
         ],
@@ -86,7 +86,7 @@ describe("buildDynamicImportModules", () => {
         [
           {
             name: "example",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "node_modules/example/index.js",
           },
         ],
@@ -119,7 +119,7 @@ describe("buildDynamicImportModules", () => {
         [
           {
             name: "example",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "node_modules/example/index.js",
           },
         ],
@@ -151,7 +151,7 @@ describe("buildDynamicImportModules", () => {
         [
           {
             name: "example",
-            moduleType: 'esm',
+            moduleType: "esm",
             entryPointPath: "node_modules/example/index.js",
           },
         ],

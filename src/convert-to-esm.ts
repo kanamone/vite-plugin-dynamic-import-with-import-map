@@ -2,7 +2,7 @@ import { build } from "esbuild";
 import { Module } from "./module.js";
 import { Result, createErr, createOk } from "option-t/PlainResult";
 import { tryCatchIntoResultAsync } from "option-t/PlainResult/tryCatchAsync";
-import esbuldNamedExportsPlugin from 'esbuild-plugin-named-exports'
+import esbuldNamedExportsPlugin from "esbuild-plugin-named-exports";
 
 export type ConvertToESMError =
   | {
@@ -22,39 +22,40 @@ export type ConvertedResult = {
 
 export type ConvertToESM = (
   mod: Module,
-  external: string[]
+  external: string[],
 ) => Promise<Result<ConvertedResult, ConvertToESMError>>;
-export const convertToESM: () => ConvertToESM = () => async (mod: Module, external: string[]) => {
-  const plugins = mod.moduleType === 'cjs'  ? [esbuldNamedExportsPlugin] : []
-  const transformedSourceCodeResult = await tryCatchIntoResultAsync(() =>
-    build({
-      plugins,
-      entryPoints: [mod.entryPointPath],
-      bundle: true,
-      sourcemap: "inline",
-      format: "esm",
-      platform: "browser",
-      minify: true,
-      minifyWhitespace: true,
-      minifyIdentifiers: false,
-      write: false,
-      external
-    }),
-  );
+export const convertToESM: () => ConvertToESM =
+  () => async (mod: Module, external: string[]) => {
+    const plugins = mod.moduleType === "cjs" ? [esbuldNamedExportsPlugin] : [];
+    const transformedSourceCodeResult = await tryCatchIntoResultAsync(() =>
+      build({
+        plugins,
+        entryPoints: [mod.entryPointPath],
+        bundle: true,
+        sourcemap: "inline",
+        format: "esm",
+        platform: "browser",
+        minify: true,
+        minifyWhitespace: true,
+        minifyIdentifiers: false,
+        write: false,
+        external,
+      }),
+    );
 
-  if (
-    !transformedSourceCodeResult.ok ||
-    transformedSourceCodeResult.val.outputFiles == undefined
-  ) {
-    return createErr({
-      kind: "TransformError",
+    if (
+      !transformedSourceCodeResult.ok ||
+      transformedSourceCodeResult.val.outputFiles == undefined
+    ) {
+      return createErr({
+        kind: "TransformError",
+        pkgName: mod.name,
+        error: transformedSourceCodeResult.err,
+      });
+    }
+
+    return createOk({
       pkgName: mod.name,
-      error: transformedSourceCodeResult.err,
+      body: transformedSourceCodeResult.val.outputFiles[0].text || "",
     });
-  }
-
-  return createOk({
-    pkgName: mod.name,
-    body: transformedSourceCodeResult.val.outputFiles[0].text || "",
-  });
-};
+  };
