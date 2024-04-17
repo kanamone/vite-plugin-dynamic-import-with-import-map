@@ -22,8 +22,9 @@ export type ConvertedResult = {
 
 export type ConvertToESM = (
   mod: Module,
+  external: string[]
 ) => Promise<Result<ConvertedResult, ConvertToESMError>>;
-export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
+export const convertToESM: () => ConvertToESM = () => async (mod: Module, external: string[]) => {
   const plugins = mod.moduleType === 'cjs'  ? [esbuldNamedExportsPlugin] : []
   const transformedSourceCodeResult = await tryCatchIntoResultAsync(() =>
     build({
@@ -37,6 +38,7 @@ export const convertToESM: () => ConvertToESM = () => async (mod: Module) => {
       minifyWhitespace: true,
       minifyIdentifiers: false,
       write: false,
+      external
     }),
   );
 

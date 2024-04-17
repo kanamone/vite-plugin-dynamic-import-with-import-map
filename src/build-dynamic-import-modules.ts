@@ -21,14 +21,15 @@ type ImportMapEntry = [ModuleName, TransformedBody];
 export type BuildDynamicImportModules = (
   modules: ReadonlyArray<Module>,
   distPath: string,
+  externals?: string[]
 ) => Promise<
   Result<ReadonlyArray<ImportMapEntry>, BuildDynamicImportModulesError>
 >;
 
 export const buildDynamicImportModules: (
   deps: Dependencies,
-) => BuildDynamicImportModules = (deps) => async (mods, distPath) => {
-  const transformedModResults = await Promise.all(mods.map(deps.convertToESM));
+) => BuildDynamicImportModules = (deps) => async (mods, distPath, externals = []) => {
+  const transformedModResults = await Promise.all(mods.map((mod) => deps.convertToESM(mod, externals)));
   const transformedModsResult = allForResults(transformedModResults);
 
   if (!transformedModsResult.ok) {

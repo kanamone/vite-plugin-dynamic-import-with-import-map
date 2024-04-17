@@ -32,6 +32,7 @@ export const transformIndexHtmlHandler: (
     const entries = await deps.buildDynamicImportModules(
       modsResult.val,
       "./dist",
+      options
     );
     if (!entries.ok) {
       throw entries.err;
