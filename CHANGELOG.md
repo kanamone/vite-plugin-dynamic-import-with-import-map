@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.1.1
+
+### Patch Changes
+
+- 0912d55: Fix a bug where include external depenency in bundle
+
 ## 0.1.0
 
 ### Minor Changes
