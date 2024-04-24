@@ -38,7 +38,7 @@ export const transformIndexHtmlHandler: (
       throw entries.err;
     }
     const importMap = entries.val.reduce<Record<string, string>>(
-      (acc, [name, path]) => ({ ...acc, [name]: `./${path}` }),
+      (acc, [name, path]) => ({ ...acc, [name]: `/${path}` }),
       {},
     );
 
