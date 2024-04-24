@@ -1,5 +1,11 @@
 # @kanamone/vite-plugin-dynamic-import-with-import-map
 
+## 0.1.2
+
+### Patch Changes
+
+- a62ddcf: Fix a bug where import map value is relative path
+
 ## 0.1.1
 
 ### Patch Changes
